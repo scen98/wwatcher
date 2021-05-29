@@ -1,0 +1,26 @@
+[
+    {
+        "name" : "Magyarország",
+        "lat" : 47.180,
+        "long" : 19.5,
+        "zoom" : 8
+    },
+    {
+        "name" : "Budapest",
+        "lat" : 47.466,
+        "long" : 19.284,
+        "zoom" : 10
+    },
+    {
+        "name": "Balaton",
+        "lat" : 46.871,
+        "long" : 17.69,
+        "zoom" : 11
+    },
+    {
+        "name" : "Európa",
+        "lat" : 50.750,
+        "long" : 27.466,
+        "zoom" : 5
+    }
+] 

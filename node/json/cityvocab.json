@@ -1,0 +1,75 @@
+[
+    {
+        "name" : "Budapest",
+        "lat" : 47.498,
+        "long" : 19.0399,
+        "country" : "HU"
+    },
+    {
+        "name" : "Debrecen",
+        "lat" : 47.5333,
+        "long" : 21.6333,
+        "country" : "HU"
+    },
+    {
+        "name" : "Győr",
+        "lat" : 47.6833,
+        "long" : 17.6361,
+        "country" : "HU"
+    },
+    {
+        "name" : "Miskolc",
+        "lat" : 48.1,
+        "long" : 20.7833,
+        "country" : "HU"
+    },
+    {
+        "name" : "Pécs",
+        "lat" : 46.0833,
+        "long" : 18.2333,
+        "country" : "HU"
+    },
+    {
+        "name" : "Szeged",
+        "lat" : 46.253,
+        "long" : 20.1482,
+        "country" : "HU"
+    },
+    {
+        "name" : "Athens",
+        "lat" : 37.9795,
+        "long" : 23.7162,
+        "country" : "GR"
+    },
+    {
+        "name" : "Prague",
+        "lat" : 50.088,
+        "long" : 14.4208,
+        "country" : "CZ"
+    },
+    {
+        "name" : "Vienna",
+        "lat" : 48.2085,
+        "long" : 16.3721,
+        "country" : "AT"
+    },
+    {
+        "name" : "London",
+        "lat" : 51.5085,
+        "long" : -0.1257,
+        "country" : "GB"
+    },
+    {
+        "name" : "Paris",
+        "lat" : 48.8534,
+        "long" : 2.3488,
+        "country" : "FR"
+    },
+    {
+        "name" : "Krarów",
+        "lat" : 50.0833,
+        "long" : 19.9167,
+        "country" : "PL"
+    }
+
+]
