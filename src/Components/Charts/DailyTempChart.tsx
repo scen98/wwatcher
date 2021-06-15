@@ -13,7 +13,7 @@ const Container = styled.div`
     background: #FDC830;
     border-radius: 10px;
     box-shadow: 0 0 10px orange;
-    width: 90%;
+    width: 95%;
     margin: auto;
 `;
 

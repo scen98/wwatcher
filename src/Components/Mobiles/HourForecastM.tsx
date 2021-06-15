@@ -12,16 +12,16 @@ interface IHourForeCast {
 }
 
 const DayTheme = {
-    background: "linear-gradient(to right, #fc4a1a, #f7b733);"
+    background: "linear-gradient(to right, #74ebd5, #7287e4);"
 }
 
 const NightTheme = {
-    background: "linear-gradient(to right, #526069, #414345);" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: "linear-gradient(to right, #697780, #414345);" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
 
 const TransTheme = {
-    background: "linear-gradient(to right, #352121, #e74c3c);"
+    background: "linear-gradient(to right, #7e4444, #a83f33);"
 }
 
 const Container = styled.div`
@@ -40,7 +40,7 @@ const Container = styled.div`
 
 const TimeDiv = styled.div`
     background: linear-gradient(to left, #434343, #000000);
-    padding-top: 16px;
+    padding-top: 20px;
     font-weight: bold;   
 `;
 
@@ -48,9 +48,10 @@ const TempDiv = styled.div`
     background: ${props => props.theme.background};
     font-size: 18px;
     font-weight: bold;
-    padding-top: 16px;
+    padding-top: 20px;
     border-left: 1px solid black;
     border-right: 1px solid black;
+    padding-left: 4px;
 `;
 
 const SecondaryIcon = styled(FontAwesomeIcon)`

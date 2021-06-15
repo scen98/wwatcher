@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { faLocationArrow, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState, useEffect, Fragment, useContext } from 'react'
-import { useHistory } from 'react-router';
+import React, { useState, useEffect, Fragment } from 'react'
 import styled from 'styled-components';
 import SearchInput from '../Components/Normals/SearchInput';
 import SearchResultBox from '../Components/Normals/SearchResultBox';
-import { arecitiesEqual, defaultLocation, deleteLocation, getCities, getDefaultCoordinates, getLocationByName, getLocationName, ICity, loadLocations, saveLocation } from '../models/geoManager';
-import { WeatherContext } from '../Weather';
+import { arecitiesEqual, deleteLocation, getCities, getDefaultCoordinates, getLocationByName, getLocationName, ICity, loadLocations, saveLocation } from '../models/geoManager';
 import { ILocationPagePreferences, defaultStorage, getPreferences, setLocationPagePreferences } from "../models/uiPreferenceManager"
+import { ContainerName, Title } from './WeatherPage';
 const PageTitle = styled.h2`
     text-align: center;
 `;
@@ -23,33 +22,6 @@ const Container = styled.div`
 const SearchContainer = styled.div`
   margin-top: 10px;
   padding: 0;
-`;
-
-export const Title = styled.div`
-    margin-top: 0;
-    padding-top: 10px;
-    font-size: 18px;
-    width: 100%;
-    font-weight: bold;
-    button{
-        float: right;
-        border: none;
-        background: none;
-        width: 60px;
-        width: 60px;
-        border-radius: 5px;
-     
-        :focus{
-            outline: none;
-        }
-        :hover{
-            background: rgba(12, 14, 15, 0.4);
-        }
-        svg{
-            font-size: 24px;
-            color: white;
-        }
-    }
 `;
 
 const ResultContainer = styled.div`
@@ -110,6 +82,10 @@ const CurrentLocationDiv = styled.div`
             font-size: 20px;
         }
     }
+`;
+
+const CurrentLocationButton = styled.button`
+
 `;
 
 
@@ -176,58 +152,49 @@ export default function CustomLocationPage() {
         const coordinates = await getDefaultCoordinates();
         const location = await getLocationName(coordinates);
         console.log(location)
-        setSearchedLocations([ location ]);
-        /*
-        const coordinates = await getDefaultCoordinates();
-        updateOneCall(coordinates);
-        if (coordinates === defaultLocation) {
-            setCurrentLocation(defaultLocation)
-        } else {
-            const city = await getLocationName(coordinates);
-            setCurrentLocation(city);
-        }
-        history.push("/wwatcher/fooldal"); */
+        setSearchedLocations([location]);
     }
 
-    function setDefaultOpens(){
+    function setDefaultOpens() {
         setPreferences(getPreferences().locationPage);
     }
 
-    function switchPopular(){
+    function switchPopular() {
         const newPreferences = setLocationPagePreferences({ ...preferences, popular: !preferences.popular });
         setPreferences(newPreferences.locationPage);
     }
 
-    function switchSearch(){
+    function switchSearch() {
         const newPreferences = setLocationPagePreferences({ ...preferences, search: !preferences.search });
         setPreferences(newPreferences.locationPage);
     }
 
-    function switchSaved(){
+    function switchSaved() {
         const newPreferences = setLocationPagePreferences({ ...preferences, saved: !preferences.saved });
         setPreferences(newPreferences.locationPage);
     }
 
     return (
         <Container>
-            <PageTitle>Időjárás helyének beállítása</PageTitle>               
-            <ResultContainer>               
+            <PageTitle>Időjárás helyének beállítása</PageTitle>
+            <ResultContainer>
                 <Title>
-                    Keresés
+                    <ContainerName>Keresés</ContainerName>
                     <button onClick={() => { switchSearch(); }}>
                         {preferences.search ?
                             (<FontAwesomeIcon icon={faMinus} />) :
                             (<FontAwesomeIcon icon={faPlus} />)}
                     </button>
                 </Title>
-                <CurrentLocationDiv>
-                <button onClick={requestCurrentLocation}>
-                    <FontAwesomeIcon icon={faLocationArrow} />
-                    Jelenlegi hely
-                </button>
-            </CurrentLocationDiv>  
+
                 {preferences.search ?
                     (<Fragment>
+                        <CurrentLocationDiv>
+                            <button onClick={requestCurrentLocation}>
+                                <FontAwesomeIcon icon={faLocationArrow} />
+                            Jelenlegi hely
+                </button>
+                        </CurrentLocationDiv>
                         <SearchContainer>
                             <SearchInput onSearch={(s) => { requestLocations(s) }} />
                         </SearchContainer>
@@ -243,7 +210,7 @@ export default function CustomLocationPage() {
             </ResultContainer>
             <MyContainer>
                 <Title>
-                    Mentett helyeim
+                    <ContainerName>Mentett helyeim</ContainerName>
                     <button onClick={() => { switchSaved(); }}>
                         {preferences.saved ?
                             (<FontAwesomeIcon icon={faMinus} />) :
@@ -263,7 +230,8 @@ export default function CustomLocationPage() {
 
             </MyContainer>
             <DefaultContainer>
-                <Title>Népszerű
+                <Title>
+                    <ContainerName>Népszerű</ContainerName>
                     <button onClick={() => { switchPopular() }}>
                         {preferences.popular ?
                             (<FontAwesomeIcon icon={faMinus} />) :

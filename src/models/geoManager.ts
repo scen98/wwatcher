@@ -60,7 +60,7 @@ export async function getCurrentCoordinates(): Promise<IGeoCoordinates> {
 };
 
 export async function getLocationName(coordinate: IGeoCoordinates): Promise<ICity> {
-  const response = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${coordinate.lat}&lon=${coordinate.long}&limit=1&appid=90b2d9f98db0480e403da333470ed642`);
+  const response = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${coordinate.lat}&lon=${coordinate.long}&limit=1&appid=90b2d9f98db0480e403da333470ed642`);
   if (response.ok) {
     const cities = await response.json() as ILocation[];
     if (cities.length < 1) {
@@ -95,7 +95,7 @@ export function getWindyId(param: IWindyParams){
 }
 
 export async function getLocationByName(name: string): Promise<ILocation[]> {
-  const response = await fetch(encodeURI(`http://api.openweathermap.org/geo/1.0/direct?q=${name}&limit=5&appid=90b2d9f98db0480e403da333470ed642`));
+  const response = await fetch(encodeURI(`https://api.openweathermap.org/geo/1.0/direct?q=${name}&limit=5&appid=90b2d9f98db0480e403da333470ed642`));
   if(response.ok){
     return await response.json();
   }

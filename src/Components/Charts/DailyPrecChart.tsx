@@ -11,7 +11,7 @@ interface IDailyPrecChart {
 }
 
 const DiaDiv = styled.div`
-    width: 90%;
+    width: 95%;
     margin: auto;
     background: #2193b0; 
     border-radius: 10px;

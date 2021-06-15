@@ -13,7 +13,6 @@ import DailyForecast from '../Components/Normals/DailyForecast';
 import HourlyForecast from '../Components/Normals/HourlyForecast';
 import { defaultStorage, getPreferences, IMainPagePreferences, setMainPagePreferences } from '../models/uiPreferenceManager';
 import { WeatherContext } from '../Weather';
-import { Title } from './CustomLocationPage';
 
 interface IWeatherTheme {
     id: number;
@@ -51,7 +50,7 @@ const themes: IWeatherTheme[] = [
     },
     {
         id: 800,
-        url: "/wwatcher/node/img/rain.jpg"
+        url: "/wwatcher/node/img/clouds.jpg"
     },
 ];
 
@@ -122,13 +121,48 @@ const ChartDiv = styled.div`
     } 
 `;
 
+export const Title = styled.div`
+    display: grid;
+    grid-template-columns: auto 60px;
+    margin-top: 0;
+    padding-top: 10px;
+    font-size: 18px;
+    width: 100%;
+    font-weight: bold;
+    padding-bottom: 0px;
+    button{
+        border: none;
+        background: none;
+        width: 100%;
+        border-radius: 5px;
+        background: rgba(12, 14, 15, 0.4);
+        :focus{
+            outline: none;
+        }
+        
+        svg{
+            font-size: 24px;
+            color: white;
+        }
+    }
+`;
+
+export const ContainerName = styled.div`
+    padding-top: 4px;
+    
+`;
 
 
 export default function WeatherPage() {
     const { current, dailies } = useContext(WeatherContext);
     const [currentTheme, setCurrentTheme] = useState<IWeatherTheme>(themes[0]);
-    const [isMobile, widthListener, cleaneupWidthListener] = useWindow(830)
+    const [isMobile, widthListener, cleaneupWidthListener] = useWindow(830);
     const [preferences, setPreferences] = useState<IMainPagePreferences>(defaultStorage.mainPage);
+
+    useEffect(()=>{
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }, []);
 
     useEffect(() => {
         loadPreferences();
@@ -193,7 +227,7 @@ export default function WeatherPage() {
                     </ThemeProvider>
                     <DropContent>
                         <Title>
-                            Mai előrejelzés
+                            <ContainerName>Mai előrejelzés</ContainerName>
                             <button onClick={() => { switchToday() }}>
                                 {preferences.today ?
                                     (<FontAwesomeIcon icon={faMinus} />) :
@@ -206,7 +240,7 @@ export default function WeatherPage() {
                     </DropContent>
                     <DropContent>
                         <Title>
-                            Heti előrejelzés
+                            <ContainerName>Heti előrejelzés</ContainerName>
                                 <button onClick={() => { switchWeek() }}>
                                 {preferences.week ?
                                     (<FontAwesomeIcon icon={faMinus} />) :

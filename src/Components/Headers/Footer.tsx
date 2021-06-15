@@ -72,8 +72,7 @@ export default function Footer() {
 
     useEffect(() => {
         requestCurrencies();
-        requestTodayNames();
-        requestTomorrowNames();
+        requestNames();
         listenWindow();
         return () => {
             cleanUp();
@@ -87,16 +86,16 @@ export default function Footer() {
         }
     }
 
-    async function requestTodayNames() {
+    async function requestNames() {
         const result = await getNames(new Date());
-        setTodayNames(result);
-    }
-
-    async function requestTomorrowNames() {
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const result = await getNames(tomorrow);
-        setTomorrowNames(result);
+        if(result != null){
+            setTodayNames(result.today);
+            setTomorrowNames(result.tomorrow);
+        } else {
+            setTodayNames(["Szerver hiba"]);
+            setTomorrowNames([]);
+        }
+        
     }
 
     return (

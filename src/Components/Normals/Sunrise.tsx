@@ -14,7 +14,7 @@ const SunriseStyle = styled.div`
     border-radius: 10px;
     font-size: 22px;
     font-weight: bold;
-    padding-bottom: 5px;
+    padding-bottom: 1px;
     padding-top: 5px;
     text-align: center;
     background: #f5af19;

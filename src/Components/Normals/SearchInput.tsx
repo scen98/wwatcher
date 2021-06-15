@@ -1,11 +1,11 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components';
 import { onEnter } from '../customHooks';
 
-interface ISearchInput{
-    onSearch: (query: string)=>void;
+interface ISearchInput {
+    onSearch: (query: string) => void;
     placeHolder?: string;
     defaultValue?: string;
 }
@@ -50,12 +50,21 @@ const SearchContainer = styled.div`
     }
 `;
 
-export const SearchInput: React.FC<ISearchInput> = ({onSearch, placeHolder = "Keresés", defaultValue = ""}) => {
+export const SearchInput: React.FC<ISearchInput> = ({ onSearch, placeHolder = "Keresés", defaultValue = "" }) => {
     const [query, setQuery] = useState(defaultValue);
+    const textRef = useRef<HTMLInputElement>(null);
+
+    function inputKeyDown(e: React.KeyboardEvent<HTMLInputElement>){
+        onEnter(e, () => { 
+            onSearch(query); 
+            textRef.current!.blur(); 
+        })
+    }
+
     return (
         <SearchContainer>
-               <input value={query} onChange={(e)=>{ setQuery(e.target.value) }} type="text" placeholder={placeHolder} onKeyDown={(e)=>{ onEnter(e, ()=>{ onSearch(query); } )}} />
-                <button onClick={()=>{ onSearch(query) }} ><FontAwesomeIcon icon={faSearch} /></button>
+            <input ref={textRef} value={query} onChange={(e) => { setQuery(e.target.value) }} type="text" placeholder={placeHolder} onKeyUp={(e) => { inputKeyDown(e) }} />
+            <button onClick={() => { onSearch(query); }} ><FontAwesomeIcon icon={faSearch} /></button>
         </SearchContainer>
     )
 }

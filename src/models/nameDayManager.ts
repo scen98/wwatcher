@@ -1,27 +1,15 @@
 
-interface IDates {
-    day: number;
-    month: number;
+interface INameDayResponse{
+    today: string[];
+    tomorrow: string[];
 }
 
-interface INamedays {
-    hu: string;
-}
 
-interface IData {
-    dates: IDates;
-    namedays: INamedays;
-}
-
-export interface INameDayResponse {
-    data: IData;
-}
-
-export async function getNames(date: Date): Promise<string[]>{
-    const response = await fetch(`https://api.abalin.net/namedays?country=hu&month=${date.getMonth() + 1}&day=${date.getDate()}`);
+export async function getNames(date: Date): Promise<INameDayResponse | null>{
+    const response = await fetch(`/wwatcher/node/nameday?year=${date.getFullYear()}&month=${date.getMonth() + 1}&day=${date.getDate()}`);
     if(!response.ok){
-        return [];
+        return null
     }
     const data: INameDayResponse = await response.json();
-    return data.data.namedays.hu.split(",");
+    return data;
 }

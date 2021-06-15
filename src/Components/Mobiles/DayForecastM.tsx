@@ -31,7 +31,7 @@ const RowContainer = styled.div`
     background: ${props => props.theme.background};
     border-top: 1px solid rgba(30, 105, 139, 0.6); 
     img{
-        width: 80px;
+        width: 70px;
     }
 `;
 
@@ -48,7 +48,7 @@ const CalendarContainer = styled.div`
 const CalendarText = styled.span`
     margin: 0;
     position: absolute;
-    top: 40%;
+    top: 48%;
     left: 53%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -60,7 +60,7 @@ const CalendarText = styled.span`
 const WeekDayText = styled.span`
     margin: 0;
     position: absolute;
-    top: 60%;
+    top: 70%;
     left: 53%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -77,7 +77,8 @@ const WeekDayText = styled.span`
 const Temp = css`
     text-align: center;
     font-size: 18px;
-    padding-top: 25px;
+    padding-top: 26px;
+    padding-left: 4px;
     width: 100%;
     font-weight: bolder;
 `;

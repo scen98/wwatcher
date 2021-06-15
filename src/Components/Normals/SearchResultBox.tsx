@@ -1,15 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { faCheckSquare, faSave, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faCheckSquare, faMapMarked, faMapMarker, faMapMarkerAlt, faSave, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext, useState, useEffect } from 'react'
+import { cleanup } from '@testing-library/react';
+import React, { useContext, useState, useEffect, Fragment } from 'react'
 import { useHistory } from 'react-router';
 import styled from 'styled-components'
 import { arecitiesEqual, ICity } from '../../models/geoManager';
 import { WeatherContext } from '../../Weather';
+import { useWindow } from '../customHooks';
 
 interface ISearchResultBox {
     location: ICity;
-    onButtonClicked: ()=>any;
+    onButtonClicked: () => any;
     save?: boolean;
     allCities?: ICity[];
 }
@@ -19,7 +21,7 @@ const Container = styled.div`
     background: RGBA(33,147,176, 1);
     width: 100%;
     display: grid;
-    grid-template-columns: auto 80px;
+    
     margin-top: 15px;
     border-radius: 10px;
     box-shadow: 0 0 5px #4e4ef1;
@@ -34,6 +36,10 @@ const Container = styled.div`
     :hover{
         box-shadow: 0 0 15px white;
         background: #00B4DB;
+    }
+
+    @media screen and (min-width: 600px) {
+        grid-template-columns: auto 80px 80px;
     }
 `;
 
@@ -78,7 +84,38 @@ const SaveButton = styled.button`
         }       
         background:#15f171;                    
     }
-    
+
+    @media screen and (max-width: 600px) {
+        border-radius: 0 0 10px 0;
+        padding: 5px;
+        svg{
+            font-size: 26px;
+        }
+    }
+`;
+
+const OpenButton = styled.button`
+      background: #302b63;
+    svg{
+        font-size: 30px;
+        color: red;
+        transition: 1s color;
+    }
+    :hover{    
+        svg{
+            color: #98fa98;
+            
+        }       
+        background: #9d50bb;         
+    }
+
+    @media screen and (max-width: 600px) {
+        border-radius: 0 0 0 10px;
+        padding: 5px;
+        svg{
+            font-size: 26px;
+        }
+    }
 `;
 
 const DeleteButton = styled.button`
@@ -98,22 +135,43 @@ const DeleteButton = styled.button`
         box-shadow: 0 0 10px lightblue;                    
     }
     transition: 1s all;
+
+    @media screen and (max-width: 600px) {
+        border-radius: 0 0 10px 0;
+        padding: 5px;
+        svg{
+            font-size: 26px;
+        }
+    }
 `;
 
-export const SearchResultBox: React.FC<ISearchResultBox> = ({ location, save = true, onButtonClicked, allCities = [] } ) => {
+const MobileButtonContainer = styled.div`
+    display: grid;
+    grid-template-columns: auto auto;
+`;
+
+export const SearchResultBox: React.FC<ISearchResultBox> = ({ location, save = true, onButtonClicked, allCities = [] }) => {
     const history = useHistory();
     const { setCurrentLocation, updateOneCall } = useContext(WeatherContext);
     const [saveIcon, setSaveIcon] = useState<IconDefinition>(faSave);
+    const [isMobile, widthListener, cleaneupWidthListener] = useWindow(600);
 
-    useEffect(()=>{
-        if(allCities.some(c => arecitiesEqual(c, location))){
+    useEffect(() => {
+        widthListener();
+        return () => {
+            cleaneupWidthListener();
+        }
+    }, [])
+
+    useEffect(() => {
+        if (allCities.some(c => arecitiesEqual(c, location))) {
             setSaveIcon(faCheckSquare);
         } else {
             setSaveIcon(faSave);
         }
     }, [location, allCities]);
 
-    function onRowClick(){
+    function onRowClick() {
         setCurrentLocation(location);
         updateOneCall(location);
         history.push("/wwatcher/fooldal");
@@ -129,11 +187,20 @@ export const SearchResultBox: React.FC<ISearchResultBox> = ({ location, save = t
                     <LocationDesc>Koordináták: [{location.lat}, {location.long}]</LocationDesc>
                 </Infobox>
             </Content>
-            
-            {save ?
-            (<SaveButton onClick={onButtonClicked} ><FontAwesomeIcon icon={saveIcon} /></SaveButton>):
-            (<DeleteButton onClick={onButtonClicked} ><FontAwesomeIcon icon={faTrash} /></DeleteButton>)}
-            
+            {isMobile ?
+                (<MobileButtonContainer>
+                    <OpenButton onClick={onRowClick}><FontAwesomeIcon icon={faMapMarkerAlt} /></OpenButton>
+                    {save ?
+                        (<SaveButton onClick={onButtonClicked} ><FontAwesomeIcon icon={saveIcon} /></SaveButton>) :
+                        (<DeleteButton onClick={onButtonClicked} ><FontAwesomeIcon icon={faTrash} /></DeleteButton>)}
+                </MobileButtonContainer>) :
+                (<Fragment>
+                    <OpenButton onClick={onRowClick}><FontAwesomeIcon icon={faMapMarkerAlt} /></OpenButton>
+                    {save ?
+                        (<SaveButton onClick={onButtonClicked} ><FontAwesomeIcon icon={saveIcon} /></SaveButton>) :
+                        (<DeleteButton onClick={onButtonClicked} ><FontAwesomeIcon icon={faTrash} /></DeleteButton>)}
+                </Fragment>)}
+
         </Container>
     )
 }

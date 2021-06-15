@@ -14,7 +14,7 @@ const Container = css`
     border-radius: 10px;
     font-size: 22px;
     font-weight: bold;
-    padding-bottom: 5px;
+    padding-bottom: 1px;
     text-align: center;
     padding-top: 5px;
     box-shadow: 0 0 10px #302f2f;
