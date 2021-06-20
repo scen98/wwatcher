@@ -103,7 +103,6 @@ export const TempTable: React.FC<ITempTable> = ({ day, showMinMax = true }) => {
         <Container>
             <TempTableStyle>
                 <tbody>
-
                     <tr>
                         <FillHeader></FillHeader>
                         <TempHeader>Hőmérséklet</TempHeader>
@@ -130,7 +129,6 @@ export const TempTable: React.FC<ITempTable> = ({ day, showMinMax = true }) => {
                         <TempNight>{getTemperature(day.feels_like.night)}</TempNight>
                     </tr>
                 </tbody>
-
             </TempTableStyle>
             {showMinMax ?
             (<MaxMinGrid>

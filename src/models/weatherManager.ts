@@ -15,7 +15,7 @@ export async function getOneCall(coordinates: IGeoCoordinates): Promise<IOneCall
     }
 }
 
-export function getTempTheme(temp: number){
+export const getTempTheme = (temp: number) => {
   if(temp > 30){
       return hotTheme;
   } 
@@ -28,7 +28,7 @@ export function getTempTheme(temp: number){
   return frozenTheme;
 }
 
-export function getTempThemeMobile(temp: number){
+export const getTempThemeMobile = (temp: number) => {
   if(temp > 30){
     return hotThemeM;
 } 
@@ -41,31 +41,27 @@ if(temp > 0){
 return frozenTheme;
 }
 
-export function getWindSpeed(windspeed: number){
-  return `${Math.round(windspeed)} km/h`;
-}
+export const getWindSpeed = (windspeed: number) =>  `${Math.round(windspeed)} km/h`;
+ 
+export const getTemperature = (degrees: number) => `${Math.round(degrees)}°`;
 
-export function getTemperature(degrees: number){
-  return `${Math.round(degrees)}°`;
-}
-
-export function getPrecFromDaily(day: IDaily){
+export const getPrecFromDaily = (day: IDaily) => {
   const rain = day.rain != null ? day.rain : 0;
   const snow = day.snow != null ? day.snow : 0;
   return rain + snow;
 }
 
-export function getPrecFromHourly(hour: IHourly){
+export const getPrecFromHourly = (hour: IHourly) => {
   const rain = hour.rain != null && Object.values(hour.rain).length > 0 ? Object.values(hour.rain)[0] as number : 0;
   const snow = hour.snow != null && Object.values(hour.snow).length > 0 ? Object.values(hour.snow)[0] as number : 0;
   return rain + snow;
 }
 
-export function getAllTemps(day: IDaily){
+export const getAllTemps = (day: IDaily) => {
   return [day.temp.morn, day.temp.day, day.temp.eve, day.temp.night];
 }
 
-export function getTempStrings(day: IDaily){
+export const getTempStrings = (day: IDaily) => {
   const date = new Date(day.dt * 1000);
   const dayShort = getDay(date).name;
   return [`${dayShort} reg.`, `${dayShort} nap`, `${dayShort} este`, `${dayShort} éj.`];

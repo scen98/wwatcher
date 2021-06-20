@@ -111,10 +111,6 @@ export const dayVocab: IDayVocab[] =  [
     }
 ]
 
-export function getDay(date: Date){
-    return dayVocab[date.getDay()];
-}
+export const getDay = (date: Date) => dayVocab[date.getDay()];
 
-export function getMonth(date: Date){
-    return monthVocab[date.getMonth()];
-}
+export const getMonth = (date: Date) => monthVocab[date.getMonth()];

@@ -91,7 +91,7 @@ export const HourForecast: React.FC<IHourForecast> = ({ hour }) => {
         setTheme();
     }, [hour.dt]);
 
-    function setTheme(){
+    const setTheme = () => {
         const sunriseHour = new Date(current.sunrise * 1000).getHours();
         const sunsetHour = new Date(current.sunset * 1000).getHours();
         const currentHour = new Date(hour.dt * 1000).getHours();

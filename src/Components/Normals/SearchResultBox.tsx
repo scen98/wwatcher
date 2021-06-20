@@ -154,14 +154,7 @@ export const SearchResultBox: React.FC<ISearchResultBox> = ({ location, save = t
     const history = useHistory();
     const { setCurrentLocation, updateOneCall } = useContext(WeatherContext);
     const [saveIcon, setSaveIcon] = useState<IconDefinition>(faSave);
-    const [isMobile, widthListener, cleaneupWidthListener] = useWindow(600);
-
-    useEffect(() => {
-        widthListener();
-        return () => {
-            cleaneupWidthListener();
-        }
-    }, [])
+    const mobile = useWindow(600);
 
     useEffect(() => {
         if (allCities.some(c => arecitiesEqual(c, location))) {
@@ -171,7 +164,7 @@ export const SearchResultBox: React.FC<ISearchResultBox> = ({ location, save = t
         }
     }, [location, allCities]);
 
-    function onRowClick() {
+    const onRowClick = () => {
         setCurrentLocation(location);
         updateOneCall(location);
         history.push("/wwatcher/fooldal");
@@ -187,7 +180,7 @@ export const SearchResultBox: React.FC<ISearchResultBox> = ({ location, save = t
                     <LocationDesc>Koordináták: [{location.lat}, {location.long}]</LocationDesc>
                 </Infobox>
             </Content>
-            {isMobile ?
+            {mobile ?
                 (<MobileButtonContainer>
                     <OpenButton onClick={onRowClick}><FontAwesomeIcon icon={faMapMarkerAlt} /></OpenButton>
                     {save ?

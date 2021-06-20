@@ -1,4 +1,4 @@
-import { useRef, MutableRefObject, useState } from "react";
+import { useRef, MutableRefObject, useState, useEffect } from "react";
 
 export function useRatio<T>(ratio: number){
     const ref = useRef<T>();
@@ -46,13 +46,23 @@ export function useWindow(maxMobile: number){
             windowStateSetter();
         });
     }
+
     const cleanUpListener = ()=>{
         window.removeEventListener("resize", ()=>{
             windowStateSetter();
         });
     }
+
     const windowStateSetter = ()=>{
         setIsMobile(maxMobile >= window.innerWidth);
     }
-    return [isMobile, listen, cleanUpListener] as const;
+
+    useEffect(()=>{
+        listen();
+        return ()=>{
+            cleanUpListener();
+        }
+    }, []);
+
+    return isMobile ;
 }

@@ -3,7 +3,7 @@ import { faCalendarDay, faCalendarWeek, faCoins } from '@fortawesome/free-solid-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState, useEffect, Fragment } from 'react'
 import styled from 'styled-components'
-import { CurrencyCodes, getCurrencies } from '../../models/currencManager';
+import { CurrencyCodes, getCurrencies } from '../../models/currencyManager';
 import { getNames } from '../../models/nameDayManager';
 import { useWindow } from '../customHooks';
 
@@ -68,25 +68,22 @@ export default function Footer() {
     const [selectedCode, setSelectedCode] = useState("EUR");
     const [todayNames, setTodayNames] = useState<string[]>([]);
     const [tomorrowNames, setTomorrowNames] = useState<string[]>([]);
-    const [isMobile, listenWindow, cleanUp] = useWindow(550);
+    const mobile = useWindow(550);
 
     useEffect(() => {
         requestCurrencies();
         requestNames();
-        listenWindow();
-        return () => {
-            cleanUp();
-        }
+
     }, [selectedCode]);
 
-    async function requestCurrencies() {
+    const requestCurrencies = async () => {
         const request = await getCurrencies({ from: selectedCode, to: "HUF" });
         if (request != null) {
             setExchangeRate((Object.values(request)[0].val));
         }
     }
 
-    async function requestNames() {
+    const requestNames = async () => {
         const result = await getNames(new Date());
         if(result != null){
             setTodayNames(result.today);
@@ -94,13 +91,12 @@ export default function Footer() {
         } else {
             setTodayNames(["Szerver hiba"]);
             setTomorrowNames([]);
-        }
-        
+        }  
     }
 
     return (
         <Fragment>
-            {isMobile ?
+            {mobile ?
                 (<ContainerM>
                     <CurrencyContainer>
                         <p><FooterIcon icon={faCoins} />HUF árfolyam</p>

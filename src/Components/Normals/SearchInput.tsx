@@ -54,11 +54,11 @@ export const SearchInput: React.FC<ISearchInput> = ({ onSearch, placeHolder = "K
     const [query, setQuery] = useState(defaultValue);
     const textRef = useRef<HTMLInputElement>(null);
 
-    function inputKeyDown(e: React.KeyboardEvent<HTMLInputElement>){
+    const inputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         onEnter(e, () => { 
             onSearch(query); 
             textRef.current!.blur(); 
-        })
+        });
     }
 
     return (

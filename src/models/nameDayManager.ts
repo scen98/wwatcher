@@ -5,7 +5,7 @@ interface INameDayResponse{
 }
 
 
-export async function getNames(date: Date): Promise<INameDayResponse | null>{
+export const getNames = async (date: Date): Promise<INameDayResponse | null> => {
     const response = await fetch(`/wwatcher/node/nameday?year=${date.getFullYear()}&month=${date.getMonth() + 1}&day=${date.getDate()}`);
     if(!response.ok){
         return null

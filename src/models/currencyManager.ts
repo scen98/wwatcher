@@ -23,7 +23,7 @@ export const CurrencyCodes = [
     "CNY"
 ]
 
-export async function getCurrencies(params: ICurrencyRequestParam): Promise<ICurrencyResponse | null>{
+export const getCurrencies = async (params: ICurrencyRequestParam): Promise<ICurrencyResponse | null> => {
     const response = await fetch(`https://free.currconv.com/api/v7/convert?apiKey=ae53ad07d8edaea9f1a6&q=${params.from}_${params.to}&compact=y`);
     if(response.ok){
         return await response.json();

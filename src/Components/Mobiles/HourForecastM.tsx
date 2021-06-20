@@ -76,7 +76,6 @@ export const HourForecastM: React.FC<IHourForeCast> = ({ hourly }) => {
             return;
         }
         setMainTheme(NightTheme);
-        return;
     }, []);
 
     return (

@@ -27,21 +27,21 @@ export const defaultStorage = {
     }
 }
 
-export function setMainPagePreferences(mainPage: IMainPagePreferences){
+export const setMainPagePreferences = (mainPage: IMainPagePreferences) => {
     const preferences = getPreferences();
     const newPreferences: IPreferenceStorage = { ...preferences, mainPage };
     window.localStorage.setItem("preferences", JSON.stringify(newPreferences));
     return newPreferences;
 }
 
-export function setLocationPagePreferences(locationPage: ILocationPagePreferences){
+export const setLocationPagePreferences = (locationPage: ILocationPagePreferences) => {
     const preferences = getPreferences();
     const newPreferences: IPreferenceStorage = { ...preferences, locationPage };
     window.localStorage.setItem("preferences", JSON.stringify(newPreferences));
     return newPreferences;
 }
 
-export function getPreferences(): IPreferenceStorage{
+export const getPreferences = (): IPreferenceStorage => {
     const storage = window.localStorage.getItem("preferences");
     if(storage == null){
         return defaultStorage;

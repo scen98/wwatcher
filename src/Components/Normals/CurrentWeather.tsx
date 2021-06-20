@@ -53,14 +53,14 @@ const Data = styled.span`
 
 export default function CurrentWeather() {
     const { current } = useContext(WeatherContext);
-    const [currentTheme, setCurrentTheme] = useState(coldTheme)
+    const [currentTheme, setCurrentTheme] = useState(coldTheme);
+
     useEffect(()=>{
         if(!current){
             setCurrentTheme(coldTheme);
         } else {
             setCurrentTheme(getTempTheme(current.temp));
-        }
-        
+        }       
     }, [current]);
 
     return (

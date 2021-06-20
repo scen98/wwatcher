@@ -61,7 +61,7 @@ export default function MapPage() {
         }
     }, []);
 
-    async function search(query: string){
+    const search = async (query: string) => {
         const locations = await getLocationByName(query);
         if(locations == null || locations.length === 0){
             setMsg("Nincs találat");

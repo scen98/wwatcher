@@ -149,14 +149,12 @@ export const Title = styled.div`
 
 export const ContainerName = styled.div`
     padding-top: 4px;
-    
 `;
-
 
 export default function WeatherPage() {
     const { current, dailies } = useContext(WeatherContext);
     const [currentTheme, setCurrentTheme] = useState<IWeatherTheme>(themes[0]);
-    const [isMobile, widthListener, cleaneupWidthListener] = useWindow(830);
+    const mobile = useWindow(830);
     const [preferences, setPreferences] = useState<IMainPagePreferences>(defaultStorage.mainPage);
 
     useEffect(()=>{
@@ -169,13 +167,9 @@ export default function WeatherPage() {
         if (!current != null) {
             setTheme();
         }
-        widthListener();
-        return () => {
-            cleaneupWidthListener();
-        }
     }, [current]);
 
-    function setTheme() {
+    const setTheme = () => {
         const id = current.weather[0].id;
         if (id === 800) {
             setClearSkyiesTheme();
@@ -184,7 +178,7 @@ export default function WeatherPage() {
         }
     }
 
-    function setNonClearTheme(id: number) {
+    const setNonClearTheme = (id: number) => {
         const roundedId = Math.floor(id / 100) * 100;
         const relevantTheme = themes.find(t => t.id === roundedId);
         if (relevantTheme != null) {
@@ -192,7 +186,7 @@ export default function WeatherPage() {
         }
     }
 
-    function setClearSkyiesTheme() {
+    const setClearSkyiesTheme = () => {
         const currentTime = new Date().getTime() / 1000;
         if (currentTime > current.sunrise && currentTime < current.sunset) {
             setCurrentTheme(themes[0]);
@@ -201,24 +195,24 @@ export default function WeatherPage() {
         }
     }
 
-    function loadPreferences(){
+    const loadPreferences = () => {
         const prefs = getPreferences();
         setPreferences(prefs.mainPage);
     }
 
-    function switchToday(){
+    const switchToday = () => {
         const newPref = setMainPagePreferences({ ...preferences, today: !preferences.today });
         setPreferences(newPref.mainPage);
     }
 
-    function switchWeek(){
+    const switchWeek = () =>{
         const newPref = setMainPagePreferences({ ...preferences, week: !preferences.week });
         setPreferences(newPref.mainPage);
     }
 
     return (
         <ThemeProvider theme={currentTheme}>
-            {isMobile ?
+            {mobile ?
                 (<Fragment>
                     <ThemeProvider theme={currentTheme}>
                         <CurrentBoxM>

@@ -48,7 +48,7 @@ export const Precipitation: React.FC<IPrecipitation> = ({day}) => {
         <Container>          
             <MainIcon icon={mainIcon} />
             <Title>Csapadék</Title>
-            <p>Esély: <b>{day.pop*100}%</b></p>
+            <p>Esély: <b>{Math.round(day.pop*100)}%</b></p>
             {day.rain != null ? 
             (<p>Eső: <b>{day.rain} mm</b></p>):
             (<Fragment></Fragment>)}

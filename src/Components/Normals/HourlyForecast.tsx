@@ -34,32 +34,29 @@ export default function HourlyForecast() {
     const container = useRef<HTMLDivElement>(null);
     const position = useRef({ left: 0, x: 0 });
 
-    useEffect(()=>{
+    useEffect(() => {
         container.current!.addEventListener("mousedown", mouseDownHandler);
         container.current!.addEventListener("mouseleave", mouseUpHandler);
         container.current!.addEventListener("wheel", wheelHandler);
-        return ()=>{
+        return () => {
         }
-    },[]);
+    }, []);
 
-    function mouseMoveHandler(e: any){
-        // How far the mouse has been moved
+    const mouseMoveHandler = (e: any) => {
         const dx = e.clientX - position.current.x;
-        // Scroll the element
         container.current!.scrollLeft = position.current.left - dx;
     }
 
-    function mouseUpHandler(){
+    const mouseUpHandler = () => {
         container.current!.style.cursor = "grab";
         container.current!.style.removeProperty("user-select");
         container.current?.removeEventListener("mousemove", mouseMoveHandler);
     }
 
-    function mouseDownHandler(e: any){
-        // Change the cursor and prevent user from selecting the text
+    const mouseDownHandler = (e: any) => {
         container.current!.style.cursor = "grabbing";
         container.current!.style.userSelect = "none";
-        if(container.current != null){
+        if (container.current != null) {
             position.current = {
                 left: container.current.scrollLeft,
                 x: e.clientX,
@@ -69,11 +66,11 @@ export default function HourlyForecast() {
         container.current!.addEventListener("mouseup", mouseUpHandler);
     }
 
-    function wheelHandler(e: WheelEvent){
+    const wheelHandler = (e: WheelEvent) => {
         e.preventDefault();
-        if(e.deltaY < 0){ //up
+        if (e.deltaY < 0) { //up
             container.current!.scrollLeft = container.current!.scrollLeft + 50;
-        } else if(e.deltaY > 0){ //down
+        } else if (e.deltaY > 0) { //down
             container.current!.scrollLeft = container.current!.scrollLeft - 50;
         }
     }

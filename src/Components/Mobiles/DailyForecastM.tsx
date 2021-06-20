@@ -16,10 +16,9 @@ const Container = styled.div`
 `;
 
 export const DailyForecastM: React.FC<IDailyForecastM> = ({dailies}) => {
+     
+    const findDayShort = (day: IDaily) => getDay(new Date(day.dt * 1000)).short;
     
-    function findDayShort(day: IDaily){
-        return getDay(new Date(day.dt * 1000)).short;
-    }
     return (
         <Container>
             {dailies.map(d=>{

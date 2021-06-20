@@ -109,7 +109,7 @@ export default function CustomLocationPage() {
         }
     }, [preferences.popular]);
 
-    async function requestLocations(query: string) {
+    const requestLocations = async (query: string) => {
         const response = await getLocationByName(query);
         if (response.length > 0) {
             setSearchedLocations(response.map(l => {
@@ -122,18 +122,16 @@ export default function CustomLocationPage() {
         }
     }
 
-    async function requestDefaults() {
+    const requestDefaults = async () => {
         const locations = await getCities();
         if (locations != null) {
             setDefaultLocations(locations);
         }
     }
 
-    function getLocations() {
-        setMyLocations(loadLocations());
-    }
+    const getLocations = () => setMyLocations(loadLocations());
 
-    function addLocation(city: ICity) {
+    const addLocation = (city: ICity) => {
         if (myLocations.some(m => arecitiesEqual(m, city))) {
             alert("Ez a koordináta már el van mentve.");
             return false;
@@ -143,33 +141,30 @@ export default function CustomLocationPage() {
         return true;
     }
 
-    function removeLocation(city: ICity) {
+    const removeLocation = (city: ICity) => {
         deleteLocation(city);
         setMyLocations(myLocations.filter(l => !(l.name === city.name && l.lat === city.lat, l.long === city.long)));
     }
 
-    async function requestCurrentLocation() {
+    const requestCurrentLocation = async () => {
         const coordinates = await getDefaultCoordinates();
         const location = await getLocationName(coordinates);
-        console.log(location)
         setSearchedLocations([location]);
     }
 
-    function setDefaultOpens() {
-        setPreferences(getPreferences().locationPage);
-    }
+    const setDefaultOpens = () => setPreferences(getPreferences().locationPage);
 
-    function switchPopular() {
+    const switchPopular = () => {
         const newPreferences = setLocationPagePreferences({ ...preferences, popular: !preferences.popular });
         setPreferences(newPreferences.locationPage);
     }
 
-    function switchSearch() {
+    const switchSearch = () => {
         const newPreferences = setLocationPagePreferences({ ...preferences, search: !preferences.search });
         setPreferences(newPreferences.locationPage);
     }
 
-    function switchSaved() {
+    const switchSaved = () => {
         const newPreferences = setLocationPagePreferences({ ...preferences, saved: !preferences.saved });
         setPreferences(newPreferences.locationPage);
     }

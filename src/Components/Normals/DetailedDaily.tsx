@@ -85,7 +85,7 @@ export const UVBox = styled.div`
 
 export const DetailedDaily: React.FC<IDetailedDaily> = ({ day }) => {
 
-    function constructHeader() {
+    const constructHeader = () => {
         const dayDate = new Date(day.dt * 1000);
         const dayName = dayVocab[dayDate.getDay()].name;
         const monthName = monthVocab[dayDate.getMonth()].name;

@@ -34,11 +34,7 @@ export const DailyForecast: React.FC<IDailyForecast> = ({dailies}) => {
         }
     }, [dailies]);
 
-
-
-    function getDayName(day: IDaily){
-        return getDay(new Date(day.dt * 1000)).short;
-    }
+    const getDayName = (day: IDaily) => getDay(new Date(day.dt * 1000)).short;
 
     return (
         <Fragment>        
